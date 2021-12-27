@@ -1,0 +1,13 @@
+# Target labels
+ bootloader
+# Source files and their labels
+C:/THTKHTNKD/esp_mqtt/build/CMakeFiles/bootloader
+C:/THTKHTNKD/esp_mqtt/build/CMakeFiles/bootloader.rule
+C:/THTKHTNKD/esp_mqtt/build/CMakeFiles/bootloader-complete.rule
+C:/THTKHTNKD/esp_mqtt/build/bootloader-prefix/src/bootloader-stamp/bootloader-install.rule
+C:/THTKHTNKD/esp_mqtt/build/bootloader-prefix/src/bootloader-stamp/bootloader-mkdir.rule
+C:/THTKHTNKD/esp_mqtt/build/bootloader-prefix/src/bootloader-stamp/bootloader-download.rule
+C:/THTKHTNKD/esp_mqtt/build/bootloader-prefix/src/bootloader-stamp/bootloader-update.rule
+C:/THTKHTNKD/esp_mqtt/build/bootloader-prefix/src/bootloader-stamp/bootloader-patch.rule
+C:/THTKHTNKD/esp_mqtt/build/bootloader-prefix/src/bootloader-stamp/bootloader-configure.rule
+C:/THTKHTNKD/esp_mqtt/build/bootloader-prefix/src/bootloader-stamp/bootloader-build.rule

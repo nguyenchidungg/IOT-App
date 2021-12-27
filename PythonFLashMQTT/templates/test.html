@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Forecast</title>
+    <link rel="stylesheet" href="../static/css/main.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<script type="text/javascript">
+    var $SCRIPT_ROOT = {{ request.script_root|tojson|safe }};
+   var intervalID = setInterval(update_values,1000);
+   
+     function update_values() {
+           $.getJSON($SCRIPT_ROOT + '/_stuff',
+                  
+         function(data) {
+           $('#temp').text(data.temp+'°C');
+           $('#humi').text(data.humi+'%');
+           console.log(data)
+         });
+       };
+</script>
+<body onload="update_values();">
+    <div class="contain">
+        <h1 class="title">ESP32 - Temperature and Humidity</h1>
+        <div class="content">
+            <div class="">
+                <h2>
+                    Temperature<i class="material-icons icon" style="font-size:30px;color:rgb(244, 176, 89);">thermostat: </i> 
+                </h2>
+                <span id="temp"></span>
+            </div>
+            <div class="">
+                <h2>
+                    Humidity<i class="material-icons icon" style="font-size:30px;color:#61BBEC;">invert_colors: </i>
+                </h2>
+                <span id="humi"> </span>
+            </div>	  
+        </div>
+        
+        <!--chart-->
+        <div style="width: 50vw; height: 50vh;" class="chart">
+            <canvas id="myChart"></canvas>
+          </div>
+          <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+          <script>
+            const data = {
+              labels: [" ", " ", " ", " ", " ", " ", " ", " ", " ", " "],
+              datasets: [
+                {
+                  label: "Temp",
+                  backgroundColor: "red",
+                  borderColor: "red",
+                  data: [0, 10, 5, 2, 20, 30, 45, 21, 23, 44],
+                },
+                {
+                  label: "Humi",
+                  backgroundColor: "blue",
+                  borderColor: "blue",
+                  data: [0, 10, 5, 2, 20, 30, 45, 21, 23, 44],
+                },
+              ],
+            };
+      
+            // <block:config:0>
+            const config = {
+              type: "line",
+              data,
+              options: {},
+            };
+            var myChart = new Chart(document.getElementById("myChart"), config);
+            function Update(){
+              axios.get('http://127.0.0.1:5000/data')
+              .then((response) => {
+                let index = 0;
+                res = response.data;
+                res.slice().reverse().forEach(element => {
+                  // console.log(element.id)
+                  myChart.data.labels[index] = element.Time;
+                  myChart.data.datasets[0].data[index] = element.Temp
+                  myChart.data.datasets[1].data[index] = element.Humi
+                  // console.log(index + ": " + element.value)
+                  index++;
+                });
+                myChart.update()
+              })
+              .catch(err => {
+                console.error(err)
+              })
+            }
+            var intervalID = setInterval(Update, 1000);
+      
+            
+            
+          </script>
+        <footer class="footer">@IOT System - Wireless Embedded - CE232 - team1</footer>
+    </div>
+    
+    <script type="text/javascript"
+      src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js">
+     </script>
+</body>
+</html>
